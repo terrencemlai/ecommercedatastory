@@ -12,7 +12,10 @@ Highlights 3-4 key trends with filtering capabilities to drill down further.
 
 
 ## Architecture & Technology
-
+* D3
+* Vanilla JS
+* HTML
+* CSS
 
 ## Implementation Timeline
 
