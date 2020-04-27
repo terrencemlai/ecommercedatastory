@@ -18,6 +18,15 @@ Highlights 3-4 key trends with filtering capabilities to drill down further.
 * CSS
 
 ## Implementation Timeline
+#### Day 1 (Mon, 4/27, 0.5 Days)
+
+#### Day 2 (Tues, 4/28, 0.5 Days)
+
+#### Day 3 (Wed, 4/29, 1 Day)
+
+#### Day 4 (Thurs, 4/30, 0.5 Days)
+
+#### Day 5 (Fri, 5/1, 0.5 Days)
 
 
 ## Bonus Features
