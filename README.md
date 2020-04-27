@@ -19,15 +19,25 @@ Highlights 3-4 key trends with filtering capabilities to drill down further.
 
 ## Implementation Timeline
 #### Day 1 (Mon, 4/27, 0.5 Days)
+* Identify narrative points and trends to highlight
+* Determine effective visualizations to illustrate narrative points
+* Set up skeleton
+* Determine how best to save/store data
 
 #### Day 2 (Tues, 4/28, 0.5 Days)
+* Complete Visualization #1
+* Style page layout
 
 #### Day 3 (Wed, 4/29, 1 Day)
+* Complete Visualizations #2-3
+* Style page updates
 
 #### Day 4 (Thurs, 4/30, 0.5 Days)
+* Complete visualiation #4
+* Complete tooltips
+* Complete selectors/filters
 
 #### Day 5 (Fri, 5/1, 0.5 Days)
-
-
-## Bonus Features
+* Debug and troubleshoot
+* Final styling
 
