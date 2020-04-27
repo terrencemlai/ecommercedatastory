@@ -41,3 +41,5 @@ Highlights 3-4 key trends with filtering capabilities to drill down further.
 * Debug and troubleshoot
 * Final styling
 
+## Bonus Features
+* Integrates links to key events/news articles per sector per year
