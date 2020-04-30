@@ -1,10 +1,11 @@
 import './styles/index.scss';
-import { select, csv, scaleLinear, max, scaleBand, axisLeft, axisBottom, format } from 'd3';
 import { sectorTotals } from './scripts/render_chart_sector';
+import { categoryRankings } from './scripts/render_chart_cat_rankings';
+
 
 window.addEventListener("DOMContentLoaded", () => {
 
-    sectorTotals();
-
+  sectorTotals();
+  categoryRankings();
     
-  });
+});

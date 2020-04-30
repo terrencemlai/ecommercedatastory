@@ -6,6 +6,14 @@ body {
   letter-spacing: 0.02rem;
 }
 
+svg, rect, text {
+  font-family: 'Barlow';
+  font-weight: 300;
+  font-size: 10px;
+  line-height: 1rem;
+  letter-spacing: 0.02rem;
+}
+
 #sector-totals {
   border: 1px dashed lightgray;
   margin-top: 4em;
@@ -52,3 +60,22 @@ body {
   }
 }
   
+#category-totals {
+  border: 1px dashed lightgray;
+  margin-top: 4em;
+
+  & rect {
+    fill: lightseagreen;
+  }
+
+}
+
+#category-totals #yAxisLabels .domain {
+  color: transparent;
+}
+
+#year-label {
+  color: black;
+  font-size: 12px;
+  text-decoration: underline;
+}
