@@ -45,6 +45,15 @@ svg, rect, text {
   padding-bottom: 3em;
 }
 
+#cover-photo{
+  height: 350px;
+  width: auto;
+  background-image: url('/src/assets/ecomm.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+
 #sector-totals {
 
   & text, .domain, line {
