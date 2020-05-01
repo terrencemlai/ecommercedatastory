@@ -9,7 +9,7 @@ import {
     format, 
     event,
     easeLinear} from 'd3';
-    
+
 const width = 800;
 const height = 400;
 const margin = { top: 50, right: 50, bottom: 50, left: 50 };
@@ -27,7 +27,7 @@ const svg = select('#chart-01')
 select('#chart-01')
     .append('div')
     .attr('id', 'sector-tooltip')
-    .attr('style', 'position: absolute; opacity: 0;');
+    .attr('style', 'position: fixed; opacity: 0;');
 
 const renderTooltip = (d) => {
     return(`
@@ -76,11 +76,10 @@ const renderChart = data => {
         .attr('width', xScale.bandwidth())
         .attr('height', d =>  yScale(yValue(d)))
         .on('mouseover', function(d) {
-            debugger;
             select('#sector-tooltip')
                 .style('opacity', 1)
-                .style('top', margin.top + yScale(yValue(d)) + 'px')
-                .style('left', event.pageX - 80 + 'px')
+                .style("top",  event.target.getBoundingClientRect().y - 100 + "px")
+                .style('left', event.target.getBoundingClientRect().x - 50 + 'px')
                 .html(renderTooltip(d))
             })
         .on('mouseout', function() {
@@ -94,7 +93,6 @@ const renderChart = data => {
             .attr('y', d => yScale(yValue(d)))
             .attr('width', xScale.bandwidth())
             .attr('height', d => yScale(0) - yScale(yValue(d)))
-            .style("fill", "rgb(135, 206, 250)");
 };
 
 

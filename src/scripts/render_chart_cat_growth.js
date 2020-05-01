@@ -12,7 +12,6 @@ import {
     event,
     nest,
     scaleOrdinal,
-    schemeCategory10,
     format} from 'd3';
     
 const width = 800;
@@ -45,8 +44,9 @@ const categories = {
     'Jewelry': false,
 }
 
-const colorScale = scaleOrdinal(schemeCategory10)
-    .domain(Object.keys(categories));
+const colorScale = scaleOrdinal()
+    .domain(Object.keys(categories))
+    .range(["#49006a","#700174","#99037c","#c01788","#e03e98","#f369a3","#f993b0","#4394c3","#1a7db6","#0667a1","#045281","#023858"]);
 
 let mainData;
 

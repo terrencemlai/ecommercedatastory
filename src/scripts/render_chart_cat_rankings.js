@@ -25,8 +25,18 @@ const svg = select('#chart-02')
     .attr('height', height)
     .attr('id', 'category-totals')
 
-let mainData;
+select('#chart-02')
+    .append('div')
+    .attr('id', 'ranking-tooltip')
+    .attr('style', 'position: fixed; opacity: 0;');
 
+const renderTooltip = (d) => {
+    return(`
+        <div><strong>${d.category}</strong></div>
+        <div><strong>Category E-comm Sales:</strong> $${Math.floor(d.cat_ecomm/1000000000)}B</div>
+        <div><strong>Sector Total E-Comm Sales:</strong> $${Math.floor(d.sector_ecomm/1000000000)}B</div>
+    `)
+}
 
 
 
@@ -63,6 +73,17 @@ const renderChart = data => {
             .attr('height', yScale.bandwidth())
             .attr('y', (d, i) => yScale(yValue(d)))
             .attr('width', 0)
+        .on('mouseover', function(d) {
+            select('#ranking-tooltip')
+                .style('opacity', 1)
+                .style("top",  event.target.getBoundingClientRect().y +  "px")
+                .style('left', event.target.getBoundingClientRect().x + event.target.getBoundingClientRect().width + 40 + 'px')
+                .html(renderTooltip(d))
+            })
+        .on('mouseout', function() {
+            select('#ranking-tooltip')
+                .style('opacity', 0)
+            })
         .transition().duration(fade)
             .ease(easeLinear)
             .attr('x', d => xScale(0))
