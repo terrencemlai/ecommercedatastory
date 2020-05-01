@@ -7,7 +7,7 @@ import {
     axisLeft, 
     axisBottom, 
     format, 
-    tip,
+    event,
     easeLinear} from 'd3';
     
 const width = 800;
@@ -17,35 +17,28 @@ const innerWidth = width - margin.left - margin.right;
 const innerHeight = height - margin.top - margin.bottom;
 
 
-const svg = select('body')
+const svg = select('#chart-01')
     .append('svg')
     .attr("width", width)
     .attr("height", height)
     .attr("id", "sector-totals")
 
-select('body')
+
+select('#chart-01')
     .append('div')
     .attr('id', 'sector-tooltip')
     .attr('style', 'position: absolute; opacity: 0;');
 
-// const renderTooltip = (d) => {
-//     return(`
-//         <div><strong>Year:</strong> ${d.year}</div>
-//         <div><strong>Sector Sales:</strong> $${Math.floor(d.eshop_total/1000000000)}B</div>
-//         <div><strong>US Sales:</strong> $${Math.floor(d.us_total/1000000000)}B</div>
-//     `)
-// }
-const tooltip = tip()
-    .attr('class', 'sector-tooltip')
-    .html( d => {
+const renderTooltip = (d) => {
     return(`
         <div><strong>Year:</strong> ${d.year}</div>
         <div><strong>Sector Sales:</strong> $${Math.floor(d.eshop_total/1000000000)}B</div>
         <div><strong>US Sales:</strong> $${Math.floor(d.us_total/1000000000)}B</div>
     `)
-    });
+}
 
 const renderChart = data => {
+    const svg = select('#sector-totals');
     const xValue = d => d.year;
     const yValue = d => d.pct_total;
     
@@ -74,8 +67,6 @@ const renderChart = data => {
 
     plotArea.append('g').call(yAxis)
         .select('.domain').remove();
-
-    plotArea.tip(tooltip);
     
     plotArea.selectAll('rect').data(data)
     .enter()
@@ -84,19 +75,18 @@ const renderChart = data => {
         .attr('y', d => yScale(0) - yScale(yValue(d)))
         .attr('width', xScale.bandwidth())
         .attr('height', d =>  yScale(yValue(d)))
-        // .on('mouseover', function(d) {
-        //     select('#sector-tooltip')
-        //         .style('opacity', 1)
-        //         .style('top', margin.top + yScale(yValue(d)) - 60 + 'px')
-        //         .style('left', margin.left + xScale(xValue(d)) - 45 + 'px')
-        //         .html(renderTooltip(d))
-        //     })
-        // .on('mouseout', function() {
-        //     select('#sector-tooltip')
-        //         .style('opacity', 0)
-        //     })
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide)
+        .on('mouseover', function(d) {
+            debugger;
+            select('#sector-tooltip')
+                .style('opacity', 1)
+                .style('top', margin.top + yScale(yValue(d)) + 'px')
+                .style('left', event.pageX - 80 + 'px')
+                .html(renderTooltip(d))
+            })
+        .on('mouseout', function() {
+            select('#sector-tooltip')
+                .style('opacity', 0)
+            })
         .transition()
             .duration(800)
             .ease(easeLinear)

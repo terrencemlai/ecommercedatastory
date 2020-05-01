@@ -19,16 +19,21 @@ const yValue = d => d.category;
 const xValue = d => d.pct_ecomm;
 const formatLabel = d => Math.floor(d.pct_ecomm * 100)+'%';
 
-const svg = select('body')
+const svg = select('#chart-02')
     .append('svg')
     .attr('width', width)
     .attr('height', height)
     .attr('id', 'category-totals')
 
+let mainData;
+
+
+
+
 
 const renderChart = data => {
+    selectAll('#category-totals g, #category-totals text').remove();
     const fade = 500;
-    const year = data[0].year;
 
     const yScale = scaleBand()
         .domain(data.map(yValue))
@@ -126,6 +131,8 @@ export const categoryRankings = () => {
             d.pct_ecomm = d.cat_ecomm/d.sector_ecomm;
         })
 
+
+
         const filterData = (year) => {
             return (
                 data.filter(d => {return  d.year === year && d.category !== 'Nonmerchandise'})
@@ -144,7 +151,17 @@ export const categoryRankings = () => {
 
         const loopYears = () => {
             year++;
-            if (year === 2017) { clearInterval(intervals); }
+            if (year === 2017) { 
+                clearInterval(intervals); 
+                svg.append('text')
+                    .attr('x', width-margin.right)
+                    .attr('y', margin.top)
+                    .attr('id', 'replay-button')
+                    .text('Replay')
+                    .on('click', () => {
+                        categoryRankings();
+                    })
+            }
 
             select('#year-label')
                 .text(`% Share in ${year}`)
@@ -153,7 +170,7 @@ export const categoryRankings = () => {
             reRenderChart(filterData(year))
         }
 
-        const intervals = setInterval(loopYears, 600);
+        const intervals = setInterval(loopYears, 500);
     })
 }
     
