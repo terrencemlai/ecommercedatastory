@@ -152,8 +152,6 @@ export const categoryRankings = () => {
             d.pct_ecomm = d.cat_ecomm/d.sector_ecomm;
         })
 
-
-
         const filterData = (year) => {
             return (
                 data.filter(d => {return  d.year === year && d.category !== 'Nonmerchandise'})
@@ -178,7 +176,7 @@ export const categoryRankings = () => {
                     .attr('x', width-margin.right)
                     .attr('y', margin.top)
                     .attr('id', 'replay-button')
-                    .text('Replay')
+                    .text('[Replay]')
                     .on('click', () => {
                         categoryRankings();
                     })

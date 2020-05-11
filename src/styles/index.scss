@@ -1,7 +1,7 @@
 body {
   font-family: 'Barlow';
   font-weight: 300;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1rem;
   letter-spacing: 0.02rem;
 
@@ -48,7 +48,7 @@ svg, rect, text {
 #cover-photo{
   height: 350px;
   width: auto;
-  background-image: url('./src/assets/ecomm.jpg');
+  background-image: url('https://raw.githubusercontent.com/terrencemlai/jsproject/master/src/assets/ecomm.jpg');
   background-size: cover;
   background-position: center;
 }

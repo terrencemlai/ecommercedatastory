@@ -80,7 +80,7 @@ Object.keys(categories).map( category => {
                     mainData.filter(d => {return categories[d.category]})
             ;
             reRenderChart(filteredData);
-            debugger;
+   
             select(event.currentTarget).style('background-color' , toggleFilterBackground(category));
             select(event.currentTarget).style('color' , toggleFilterTextColor(category));
         })
