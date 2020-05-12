@@ -48,6 +48,8 @@ const colorScale = scaleOrdinal()
     .domain(Object.keys(categories))
     .range(["#49006a","#700174","#99037c","#c01788","#e03e98","#f369a3","#f993b0","#4394c3","#1a7db6","#0667a1","#045281","#023858"]);
 
+const R = 6;
+
 let mainData;
 
 const toggleFilterBackground = (category) => {
@@ -66,8 +68,12 @@ const toggleFilterTextColor = (category) => {
     }
 }
 
+select('#chart-03')
+    .append('div')
+    .attr('class', 'filter-container')
+
 Object.keys(categories).map( category => {
-    select('#chart-03').append('span')
+    select('#chart-03 .filter-container').append('span')
         .attr('class','filter')
         .attr('id', category)
         .text(category)
@@ -86,10 +92,17 @@ Object.keys(categories).map( category => {
         })
 })
 
+select('#chart-03')
+    .append('p')
+        .text(`Source: US Census Bureau Estimated Annual U.S. Electronic Shopping and Mail-Order Houses - E-commerce Sales by Merchandise Line`)
+        .attr('class', 'caption')
+        .style('color', 'gray')
+        .style('text-align', 'center')
+        .style('font-size', '10px')
+
 
 const yAxisTickFormat = number =>
         format('$.0s')(number).replace('G','B');
-
 
 
 const renderChart = data => {
@@ -139,6 +152,12 @@ const renderChart = data => {
         .key(d => d.category)
         .entries(data);
 
+    select('#category-growth')
+    .append('text')
+        .text(`Annual E-commerce Sales (Billions) by Category and Year`)
+        .style('fill', 'gray')
+        .attr('id', 'growth-axis-label')
+        .attr('transform', `translate(${margin.left}, ${margin.top - 15})`)
 
     const lines = plotArea.selectAll('.line-path').data(nested, d=> d.key);
 
@@ -147,9 +166,17 @@ const renderChart = data => {
             .attr('class', 'line-path')
             .attr('stroke', d => colorScale(d.key))
             .attr('d', d => flatlineGenerator(d.values))
+        .on('mouseover', function() {
+                select(".mouse-line")
+                  .style("opacity", "1");
+                selectAll(".mouse-per-line circle")
+                  .style("opacity", "1");
+                selectAll(".mouse-per-line text")
+                  .style("opacity", "1");
+              })
         .transition().delay(200)
-            .attr('d', d => lineGenerator(d.values))
-    
+              .attr('d', d => lineGenerator(d.values));
+
 };
 
 

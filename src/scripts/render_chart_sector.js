@@ -23,7 +23,6 @@ const svg = select('#chart-01')
     .attr("height", height)
     .attr("id", "sector-totals")
 
-
 select('#chart-01')
     .append('div')
     .attr('id', 'sector-tooltip')
@@ -32,7 +31,7 @@ select('#chart-01')
 const renderTooltip = (d) => {
     return(`
         <div><strong>Year:</strong> ${d.year}</div>
-        <div><strong>Sector Sales:</strong> $${Math.floor(d.eshop_total/1000000000)}B</div>
+        <div><strong>Industry Sales:</strong> $${Math.floor(d.eshop_total/1000000000)}B</div>
         <div><strong>US Sales:</strong> $${Math.floor(d.us_total/1000000000)}B</div>
     `)
 }
@@ -67,6 +66,22 @@ const renderChart = data => {
 
     plotArea.append('g').call(yAxis)
         .select('.domain').remove();
+
+    select('#sector-totals')
+    .append('text')
+        .text(`% of Total Annual U.S. Retail Revenue by Year`)
+        .style('fill', 'gray')
+        .attr('id', 'sector-axis-label')
+        .attr('transform', `translate(${margin.left}, ${margin.top - 10})`)
+    
+    select('#sector-totals')
+    .append('text')
+        .text(`Source: US Census Bureau Estimated Annual U.S. Retail Trade Sales - Total and E-commerce: 1998-2017`)
+        .attr('class', 'caption')
+        .style('fill', 'gray')
+        .style('font-size', '0.8em')
+        .attr('transform', `translate(${margin.left}, ${height - margin.bottom + 45})`)
+
     
     plotArea.selectAll('rect').data(data)
     .enter()
@@ -79,7 +94,7 @@ const renderChart = data => {
             select('#sector-tooltip')
                 .style('opacity', 1)
                 .style("top",  event.target.getBoundingClientRect().y - 100 + "px")
-                .style('left', event.target.getBoundingClientRect().x - 50 + 'px')
+                .style('left', event.target.getBoundingClientRect().x - 70 + 'px')
                 .html(renderTooltip(d))
             })
         .on('mouseout', function() {
@@ -93,6 +108,8 @@ const renderChart = data => {
             .attr('y', d => yScale(yValue(d)))
             .attr('width', xScale.bandwidth())
             .attr('height', d => yScale(0) - yScale(yValue(d)))
+
+
 };
 
 

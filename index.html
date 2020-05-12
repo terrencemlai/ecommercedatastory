@@ -5,30 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
+    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>US E-commerce Trends</title>
+    <title>Rise of E-commerce and Mail-Order Houses</title>
   </head>
 
   <body>
-    <div id="main-container">
+    <div id="navbar">
+      <div class="links-container">
+        <div class="left-sub">Terrence Lai</div>
+        <div class="right-sub">
+          <a href="https://github.com/terrencemlai" target="_blank"><span class="iconify" data-icon="bx:bxl-github" data-inline="false"></span></a>
+          <a href="https://www.linkedin.com/in/terrencelai/" target="_blank"><span class="iconify" data-icon="ant-design:linkedin-filled" data-inline="false"></span></a>
+        </div>
+      </div>
+    </div>
+
+    <div id="cover-photo">
       <h1>The Rise of E-commerce and Mail-Order Houses</br> in the United States</h1>
+    </div>
+
+    <div id="main-container">
       <div id="overview" class="chart">
-        <div id="cover-photo"></div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>
+          The United States Department of Commerce and Census Bureau categorize retailers and manufacturers by industry to monitor quarterly and annual revenue.
+          The Electronic Shopping and Mail-Order Houses industry includes some of the most prominent retail brands operating without physical brick-and-mortar stores.
+          While some of these companies continue to rely on catalogues and telephone hotlines, shifts in consumer habits towards e-commerce has given them additional advantage and avenues for growth in recent decades.
+        </p>
+        <div id="company-logos"></div>
+        <p class="caption">Top 5 Electronic Shopping and Mail-Order Houses by Annual Sales (NAICS Code 4541)</p>
+        <p>
+          This data story visualizes longitudinal trends from the United States Census Bureau's Service Annual Survey (SAS) and a collection supplemental surveys.  
+          As a disclaimer, its purpose was to demonstrate and showcase D3.js' interactive and animation features in a one-page design utilizing only JavaScript.
+          Although this story reflects actual data published by the United State Census Bureau, it does not make implications about statistical correlations or causality.
+          It intentionally provides only descriptive insights.
+        </p>
+        <p>
+          At the time of design, the most recent SAS publication was for 2017.
+        </p>
       </div>
       <div id="chart-01" class="chart">
-        <h2>Total Sector Growth</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h2>Annual Growth in Share of National Retail Revenue</h2>
+        <p>
+          The Electronic Shopping and Mail-Order House industry grew from representing just over 3% of total annual retail revenue in the U.S. in 1998 to nearly 11% in 2017. 
+          The industry also represents over 80% of the country's total e-commerce sales.
+        </p>
+        <p class="instructions">
+          Mouseover each bar to view the industry and total retail sales (in billions) that year.
+        </p>
       </div>
       <div id="chart-02" class="chart">
-        <h2>Category Share</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h2>Shifting Merchandise Share of Industry Sales</h2>
+        <p>
+          Apparel became the top merchandise category by share in 2005 and represented 16% of industry revenue in 2017.
+          Computer and Cell Phones had the greatest share in 2000 with 20% of sales, but its slower relative growth makes it one of the smallest categories today at 3% share.
+        </p>
+        <p class="instructions">
+          Click [Replay] at the end of the animation to initiate it again.
+        </p>
       </div>
       <div id="chart-03" class="chart">
-        <h2>Category Growth</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h2>Merchandise Category Growth</h2>
+        <p>
+          Furniture and Home Furnishings was among the fastest-growing categories in the industry.  Computer Software and Jewelry grew more slowly in comparison.  Apparel's annual increases have been relatively consistent.  The highest growth rate is in the catchall category of Other Merchandise, which the U.S. Census Bureau defines as including "collectibles, souvenirs, auto parts and accessories, hardware, and lawn and garden equipment."
+        </p>
+        <p class="instructions">
+          Click on the merchandise category buttons below the graph to filter.
+        </p>
       </div>
-      <div class="footer"></div>
+    </div>
+
+    <div class="footer">
+        <a href="https://github.com/terrencemlai" target="_blank">GitHub</a>
+        <p> | </p>
+        <a href="https://www.linkedin.com/in/terrencelai/" target="_blank">LinkedIn</a>
     </div>
     <script src="./dist/main.js"></script>
   </body>

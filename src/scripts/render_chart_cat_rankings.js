@@ -64,6 +64,14 @@ const renderChart = data => {
     plotArea.append('g').call(yAxis)
         .attr('id', 'yAxisLabels')
         .selectAll('.domain, .tick line').remove();
+
+    select('#category-totals')
+        .append('text')
+            .text(`Source: US Census Bureau Estimated Annual U.S. Electronic Shopping and Mail-Order Houses - E-commerce Sales by Merchandise Line`)
+            .attr('class', 'caption')
+            .style('fill', 'gray')
+            .style('font-size', '0.8em')
+            .attr('transform', `translate(${margin.left}, ${height - margin.bottom + 25})`)
     
     const bars =  plotArea.selectAll('rect').data(data, d => d.category);
 
@@ -73,6 +81,7 @@ const renderChart = data => {
             .attr('height', yScale.bandwidth())
             .attr('y', (d, i) => yScale(yValue(d)))
             .attr('width', 0)
+            .attr('class', 'ranking-bars')
         .on('mouseover', function(d) {
             select('#ranking-tooltip')
                 .style('opacity', 1)
@@ -90,6 +99,7 @@ const renderChart = data => {
             .attr('y', d => yScale(yValue(d)))
             .attr('height', yScale.bandwidth())
             .attr('width', d => xScale(xValue(d)))
+            
             
     const labels = plotArea.selectAll('text').data(data, d=> d.category)
 
@@ -120,7 +130,7 @@ export const reRenderChart = (data) => {
         .range([0, innerWidth])
         .nice();
 
-    selectAll('rect').data(data, d=>d.category)
+    selectAll('.ranking-bars').data(data, d=>d.category)
         .transition().duration(fade)
         .attr('y', (d, i) => yScale(yValue(d)))
         .attr('width', d => xScale(xValue(d)))
@@ -164,7 +174,7 @@ export const categoryRankings = () => {
         
         select('#category-totals')
             .append('text')
-                .text(`% Share in ${year}`)
+                .text(`% of Industry Share in ${year}`)
                 .attr('id', 'year-label')
                 .attr('transform', `translate(${margin.left}, ${margin.top - 5})`)
 
@@ -182,14 +192,16 @@ export const categoryRankings = () => {
                     })
             }
 
-            select('#year-label')
-                .text(`% Share in ${year}`)
-                .transition().duration(300);
+        select('#year-label')
+            .text(`% of Industry Share in ${year}`)
+            .transition().duration(300);
 
-            reRenderChart(filterData(year))
+        reRenderChart(filterData(year))
         }
 
         const intervals = setInterval(loopYears, 500);
+
+
     })
 }
     
