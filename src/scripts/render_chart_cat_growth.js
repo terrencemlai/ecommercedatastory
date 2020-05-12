@@ -248,7 +248,7 @@ const reRenderChart = data => {
 
 
 export const categoryGrowth = () => {
-    csv('./src/assets/data-categories.csv').then(data => {
+    csv('./src/data/data-categories.csv').then(data => {
         data.forEach(d => {
             d.year = +d.year;
             d.cat_total = +d.cat_total * 1000000;

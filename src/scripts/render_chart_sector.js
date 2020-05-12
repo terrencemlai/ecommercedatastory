@@ -114,7 +114,7 @@ const renderChart = data => {
 
 
 export const sectorTotals = () => {
-    csv('./src/assets/data-sector.csv').then(data => {
+    csv('./src/data/data-sector.csv').then(data => {
         data.forEach(d => {
             d.eshop_total = +d.eshop_total * 1000000;
             d.eshop_ecomm = +d.eshop_ecomm * 1000000;

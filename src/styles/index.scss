@@ -114,7 +114,7 @@ svg, rect, text {
   width: auto;
   color: white;
   background-image: linear-gradient(to bottom, rgba(48,48,48,0) 0%, rgba(48,48,48,0.95) 100%), 
-                    url('/src/assets/ecomm.jpg');
+                    url('/src/images/ecomm.jpg');
   background-size: cover;
   background-position: center;
   padding: 1em;
@@ -127,7 +127,7 @@ svg, rect, text {
 #company-logos{
   height: 140px;
   width: auto;
-  background-image: url('/src/assets/ecomm-logos.jpg');
+  background-image: url('/src/images/ecomm-logos.jpg');
   background-size: cover;
   background-position: center;
 }
