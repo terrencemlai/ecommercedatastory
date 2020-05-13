@@ -1,45 +1,150 @@
-## Background & Overview
-Illustrates longitudinal e-commerce revenue growth by sector, based on the most recent data from the [US Census](https://www.census.gov/data/tables/2017/econ/e-stats/2017-e-stats.html).
-Highlights 3-4 key trends with filtering capabilities to drill down further.
-
-## Functionality & MVPs
-1. Illustrates total penetration of e-commerce sales in the US
-2. Illustrates annual e-commerce growth by sector (with filtering)
-3. Includes tooltips with additional data upon hover
-4. Includes ability to export or save data
-
-## Wireframes
+# E-commerce Data Story
 
 
-## Architecture & Technology
-* D3
-* Vanilla JS
-* HTML
-* CSS
+## Overview
+“Rise of E-commerce and Mail-Order Houses in the US” is an interactive data story that highlights descriptive trends of annual e-commerce revenue over the past two decades.  It offers dynamic visualizations of economic data from the [US Census](https://www.census.gov/data/tables/2017/econ/e-stats/2017-e-stats.html) for the Electronic Shopping and Mail-Order House industry (NAICS Code 4541), which includes prominent companies like Amazon, eBay, Wayfair, QVC, and Expedia.
 
-## Implementation Timeline
-#### Day 1 (Mon, 4/27, 0.5 Days)
-* Identify narrative points and trends to highlight
-* Determine effective visualizations to illustrate narrative points
-* Set up skeleton
-* Determine how best to save/store data
+## How to Interact
 
-#### Day 2 (Tues, 4/28, 0.5 Days)
-* Complete Visualization #1
-* Style page layout
+The data story is a single-page application.  Scroll down to continue viewing content and charts.  Each graph offers different interactive opportunities, such as tooltips on mouseover or customizable filters.  Have fun exploring!
 
-#### Day 3 (Wed, 4/29, 1 Day)
-* Complete Visualizations #2-3
-* Style page updates
+## Technologies
 
-#### Day 4 (Thurs, 4/30, 0.5 Days)
-* Complete visualiation #4
-* Complete tooltips
-* Complete selectors/filters
+* JavaScript
+* D3.js
+* HTML5
+* CSS3
 
-#### Day 5 (Fri, 5/1, 0.5 Days)
-* Debug and troubleshoot
-* Final styling
+A challenge for this project was to achieve interactivity and data refreshes without additional libraries like JQuery and React.
 
-## Bonus Features
-* Integrates links to key events/news articles per sector per year
+
+## Features and MVP's
+* Illustrates annual trends with D3
+* Displays tooltips for users to view supplemental data and metrics
+* Animates changing merchandise category ranks over 20 years, with a button to replay the animation
+* Updates data and charts automatically as user filters merchandise categories
+* Adheres to data visualization best practices for color palettes and minimal labeling
+
+
+
+## Sample Code Snippets
+Wait to render chart until user scrolls to element, but do not re-render again unless page refreshes or user prompts with filtering or replay.
+
+```javascript
+//Part of bigger function
+const isInViewport = (ele) => {
+    const bounding = ele.getBoundingClientRect();
+    return(
+        bounding.top + 150 <= (window.innerHeight || document.documentElement.clientHeight)
+    )
+}
+
+const totals = document.querySelector('#sector-totals');
+const rankings = document.querySelector('#category-totals');
+const growth = document.querySelector('#category-growth');
+
+let totalsLoaded = false;
+let rankingsLoaded = false;
+let growthLoaded = false;
+
+window.addEventListener('scroll', function (event) {
+    if (!totalsLoaded && isInViewport(totals)) {
+        sectorTotals();
+        totalsLoaded = true;
+    }
+
+    if (!rankingsLoaded && isInViewport(rankings))  {
+        categoryRankings();
+        rankingsLoaded = true;
+    }
+
+    if (!growthLoaded && isInViewport(growth)) {
+        categoryGrowth();
+        growthLoaded = true;
+    }
+})
+```
+
+Animate changes in merchandise category rankings, starting with year 2000.  Update rankings and title to reflect the new year.  Stop animation when year is 2017 and display “Replay” button to animate again.
+
+```javascript
+export const categoryRankings = () => {
+    csv('./src/data/data-categories.csv').then(data => {
+        data.forEach(d => {
+            d.year = +d.year;
+            d.cat_total = +d.cat_total * 1000000;
+            d.cat_ecomm = +d.cat_ecomm * 1000000;
+            d.sector_total = +d.sector_total * 1000000;
+            d.sector_ecomm = +d.sector_ecomm * 1000000;
+            d.pct_total = d.cat_total/d.sector_total;
+            d.pct_ecomm = d.cat_ecomm/d.sector_ecomm;
+        })
+
+        const filterData = (year) => {
+            return (
+                data.filter(d => {return  d.year === year && d.category !== 'Nonmerchandise'})
+                .sort((a,b) => descending(a.pct_ecomm, b.pct_ecomm))
+        )};
+
+        let year = 2000;
+        renderChart(filterData(2000));
+        
+        select('#category-totals')
+            .append('text')
+                .text(`% of Industry Share in ${year}`)
+                .attr('id', 'year-label')
+                .attr('transform', `translate(${margin.left}, ${margin.top - 5})`)
+
+        const loopYears = () => {
+            year++;
+            if (year === 2017) { 
+                clearInterval(intervals); 
+                svg.append('text')
+                    .attr('x', width-margin.right)
+                    .attr('y', margin.top)
+                    .attr('id', 'replay-button')
+                    .text('[Replay]')
+                    .on('click', () => {
+                        categoryRankings();
+            })}
+
+            select('#year-label')
+                .text(`% of Industry Share in ${year}`)
+                .transition().duration(300);
+
+            reRenderChart(filterData(year))
+        }
+
+        const intervals = setInterval(loopYears, 500);
+    })
+}
+```
+
+Update line chart with appropriate transitions when user changes merchandise category filters.
+
+```javascript
+//Part of bigger function
+const nested = nest()
+    .key(d => d.category)
+    .entries(data);
+
+const plotArea = select('#plotarea-growth')
+const lines = plotArea.selectAll('.line-path').data(nested, d => d.key);
+
+lines
+    .enter().append('path')
+        .attr('class', 'line-path')
+        .attr('stroke', d => colorScale(d.key))
+        .attr('d', d => flatlineGenerator(d.values))
+    .merge(lines)
+        .transition().duration(300)
+        .attr('d', d => lineGenerator(d.values))
+    ;
+
+lines
+    .exit()
+    .transition().duration(500)
+        .attr('d', d => flatlineGenerator(d.values))
+        .style('opacity', 0.5)
+    .remove();
+```

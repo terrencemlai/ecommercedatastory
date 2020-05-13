@@ -7,7 +7,6 @@ import {
     scaleBand, 
     axisLeft, 
     descending,
-    format, 
     easeLinear} from 'd3';
 
 const width = 800;
@@ -200,8 +199,6 @@ export const categoryRankings = () => {
         }
 
         const intervals = setInterval(loopYears, 500);
-
-
     })
 }
     

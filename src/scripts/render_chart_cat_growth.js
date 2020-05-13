@@ -27,6 +27,8 @@ const svg = select('#chart-03')
     .attr("height", height)
     .attr("id", "category-growth")
 
+let mainData;
+
 const categories = {
     'Apparel' : true, 
     'Other Merchandise' : false,
@@ -47,10 +49,6 @@ const categories = {
 const colorScale = scaleOrdinal()
     .domain(Object.keys(categories))
     .range(["#49006a","#700174","#99037c","#c01788","#e03e98","#f369a3","#f993b0","#4394c3","#1a7db6","#0667a1","#045281","#023858"]);
-
-const R = 6;
-
-let mainData;
 
 const toggleFilterBackground = (category) => {
     if (categories[category]) {
@@ -100,14 +98,12 @@ select('#chart-03')
         .style('text-align', 'center')
         .style('font-size', '10px')
 
-
+const xValue = d => d.year;
+const yValue = d => d.cat_ecomm;
 const yAxisTickFormat = number =>
         format('$.0s')(number).replace('G','B');
 
-
 const renderChart = data => {
-    const xValue = d => d.year;
-    const yValue = d => d.cat_ecomm;
     
     const xScale = scaleBand()
         .domain(data.map(xValue))
@@ -166,14 +162,6 @@ const renderChart = data => {
             .attr('class', 'line-path')
             .attr('stroke', d => colorScale(d.key))
             .attr('d', d => flatlineGenerator(d.values))
-        .on('mouseover', function() {
-                select(".mouse-line")
-                  .style("opacity", "1");
-                selectAll(".mouse-per-line circle")
-                  .style("opacity", "1");
-                selectAll(".mouse-per-line text")
-                  .style("opacity", "1");
-              })
         .transition().delay(200)
               .attr('d', d => lineGenerator(d.values));
 
@@ -181,8 +169,6 @@ const renderChart = data => {
 
 
 const reRenderChart = data => {
-    const xValue = d => d.year;
-    const yValue = d => d.cat_ecomm;
 
     const xScale = scaleBand()
         .domain(data.map(xValue))
@@ -239,12 +225,6 @@ const reRenderChart = data => {
         .remove();
     
 };
-
-
-
-
-
-
 
 
 export const categoryGrowth = () => {
