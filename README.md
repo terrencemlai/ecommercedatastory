@@ -5,6 +5,11 @@
 “Rise of E-commerce and Mail-Order Houses in the US” is an interactive data story that highlights descriptive trends of annual e-commerce revenue over the past two decades.  It offers dynamic visualizations of economic data from the [US Census](https://www.census.gov/data/tables/2017/econ/e-stats/2017-e-stats.html) for the Electronic Shopping and Mail-Order House industry (NAICS Code 4541), which includes prominent companies like Amazon, eBay, Wayfair, QVC, and Expedia.
 
 ## How to Interact
+![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-tooltips.gif "bar chart tooltips")
+![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-animation.gif "bar chart tooltips")
+![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-lines-filters.gif "bar chart tooltips")
+
+
 
 The data story is a single-page application.  Scroll down to continue viewing content and charts.  Each graph offers different interactive opportunities, such as tooltips on mouseover or customizable filters.  Have fun exploring!
 
@@ -31,7 +36,7 @@ A challenge for this project was to achieve interactivity and data refreshes wit
 Wait to render chart until user scrolls to element, but do not re-render again unless page refreshes or user prompts with filtering or replay.
 
 ```javascript
-//Part of bigger function
+//Part of anonymous function in index.js triggered on DOMContentLoaded
 const isInViewport = (ele) => {
     const bounding = ele.getBoundingClientRect();
     return(
@@ -106,13 +111,14 @@ export const categoryRankings = () => {
                     .text('[Replay]')
                     .on('click', () => {
                         categoryRankings();
-            })}
-
-            select('#year-label')
-                .text(`% of Industry Share in ${year}`)
-                .transition().duration(300);
-
-            reRenderChart(filterData(year))
+                    })
+            } else {
+                select('#year-label')
+                    .text(`% of Industry Share in ${year}`)
+                    .transition().duration(300);
+    
+                reRenderChart(filterData(year))
+            }
         }
 
         const intervals = setInterval(loopYears, 500);
@@ -123,7 +129,7 @@ export const categoryRankings = () => {
 Update line chart with appropriate transitions when user changes merchandise category filters.
 
 ```javascript
-//Part of bigger function
+//Part of re-render function
 const nested = nest()
     .key(d => d.category)
     .entries(data);
@@ -138,8 +144,7 @@ lines
         .attr('d', d => flatlineGenerator(d.values))
     .merge(lines)
         .transition().duration(300)
-        .attr('d', d => lineGenerator(d.values))
-    ;
+        .attr('d', d => lineGenerator(d.values));
 
 lines
     .exit()
