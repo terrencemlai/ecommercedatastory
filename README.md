@@ -1,17 +1,24 @@
 # E-commerce Data Story
-
+![bar chart tooltips](/src/images/header-screenshot.png "bar chart tooltips")
 
 ## Overview
 “Rise of E-commerce and Mail-Order Houses in the US” is an interactive data story that highlights descriptive trends of annual e-commerce revenue over the past two decades.  It offers dynamic visualizations of economic data from the [US Census](https://www.census.gov/data/tables/2017/econ/e-stats/2017-e-stats.html) for the Electronic Shopping and Mail-Order House industry (NAICS Code 4541), which includes prominent companies like Amazon, eBay, Wayfair, QVC, and Expedia.
 
 ## How to Interact
-![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-tooltips-275.gif "bar chart tooltips")
-![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-animation-275.gif "bar chart tooltips")
-![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-lines-filtertrans-275.gif "bar chart tooltips")
-
-
 
 The data story is a single-page application.  Scroll down to continue viewing content and charts.  Each graph offers different interactive opportunities, such as tooltips on mouseover or customizable filters.  Have fun exploring!
+
+![bar chart tooltips](/src/images/ecommdatastory-bar-tooltips-275.gif "bar chart tooltips")
+![bar chart animation](/src/images/ecommdatastory-bar-animation-275.gif "bar chart animation")
+![line chart filters](/src/images/ecommdatastory-lines-filtertrans-275.gif "line chart filters")
+
+## Features and MVP's
+
+* Illustrates annual trends with D3
+* Displays tooltips for users to view supplemental data and metrics
+* Animates changing merchandise category ranks over 20 years, with a button to replay the animation
+* Updates data and charts automatically as user filters merchandise categories
+* Adheres to data visualization best practices for color palettes and minimal labeling
 
 ## Technologies
 
@@ -23,16 +30,9 @@ The data story is a single-page application.  Scroll down to continue viewing co
 A challenge for this project was to achieve interactivity and data refreshes without additional libraries like JQuery and React.
 
 
-## Features and MVP's
-* Illustrates annual trends with D3
-* Displays tooltips for users to view supplemental data and metrics
-* Animates changing merchandise category ranks over 20 years, with a button to replay the animation
-* Updates data and charts automatically as user filters merchandise categories
-* Adheres to data visualization best practices for color palettes and minimal labeling
 
 
-
-## Sample Code Snippets
+## Sample Code
 Wait to render chart until user scrolls to element, but do not re-render again unless page refreshes or user prompts with filtering or replay.
 
 ```javascript
