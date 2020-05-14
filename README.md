@@ -7,7 +7,7 @@
 ## How to Interact
 ![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-tooltips-275.gif "bar chart tooltips")
 ![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-animation-275.gif "bar chart tooltips")
-![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-lines-filters-275.gif "bar chart tooltips")
+![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-lines-filtertrans-275.gif "bar chart tooltips")
 
 
 
