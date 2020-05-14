@@ -1,5 +1,6 @@
-# E-commerce Data Story
-![bar chart tooltips](/src/images/header-screenshot.png "bar chart tooltips")
+![header screenshot](/src/images/header-screenshot.png "header screenshot")
+
+## [Live Link](https://terrencemlai.github.io/ecommercedatastory/)
 
 ## Overview
 “Rise of E-commerce and Mail-Order Houses in the US” is an interactive data story that highlights descriptive trends of annual e-commerce revenue over the past two decades.  It offers dynamic visualizations of economic data from the [US Census](https://www.census.gov/data/tables/2017/econ/e-stats/2017-e-stats.html) for the Electronic Shopping and Mail-Order House industry (NAICS Code 4541), which includes prominent companies like Amazon, eBay, Wayfair, QVC, and Expedia.
@@ -36,120 +37,120 @@ A challenge for this project was to achieve interactivity and data refreshes wit
 Wait to render chart until user scrolls to element, but do not re-render again unless page refreshes or user prompts with filtering or replay.
 
 ```javascript
-//Part of anonymous function in index.js triggered on DOMContentLoaded
-const isInViewport = (ele) => {
-    const bounding = ele.getBoundingClientRect();
-    return(
-        bounding.top + 150 <= (window.innerHeight || document.documentElement.clientHeight)
-    )
-}
-
-const totals = document.querySelector('#sector-totals');
-const rankings = document.querySelector('#category-totals');
-const growth = document.querySelector('#category-growth');
-
-let totalsLoaded = false;
-let rankingsLoaded = false;
-let growthLoaded = false;
-
-window.addEventListener('scroll', function (event) {
-    if (!totalsLoaded && isInViewport(totals)) {
-        sectorTotals();
-        totalsLoaded = true;
+    //Part of anonymous function in index.js triggered on DOMContentLoaded
+    const isInViewport = (ele) => {
+        const bounding = ele.getBoundingClientRect();
+        return(
+            bounding.top + 150 <= (window.innerHeight || document.documentElement.clientHeight)
+        )
     }
 
-    if (!rankingsLoaded && isInViewport(rankings))  {
-        categoryRankings();
-        rankingsLoaded = true;
-    }
+    const totals = document.querySelector('#sector-totals');
+    const rankings = document.querySelector('#category-totals');
+    const growth = document.querySelector('#category-growth');
 
-    if (!growthLoaded && isInViewport(growth)) {
-        categoryGrowth();
-        growthLoaded = true;
-    }
-})
+    let totalsLoaded = false;
+    let rankingsLoaded = false;
+    let growthLoaded = false;
+
+    window.addEventListener('scroll', function (event) {
+        if (!totalsLoaded && isInViewport(totals)) {
+            sectorTotals();
+            totalsLoaded = true;
+        }
+
+        if (!rankingsLoaded && isInViewport(rankings))  {
+            categoryRankings();
+            rankingsLoaded = true;
+        }
+
+        if (!growthLoaded && isInViewport(growth)) {
+            categoryGrowth();
+            growthLoaded = true;
+        }
+    })
 ```
 
 Animate changes in merchandise category rankings, starting with year 2000.  Update rankings and title to reflect the new year.  Stop animation when year is 2017 and display “Replay” button to animate again.
 
 ```javascript
-export const categoryRankings = () => {
-    csv('./src/data/data-categories.csv').then(data => {
-        data.forEach(d => {
-            d.year = +d.year;
-            d.cat_total = +d.cat_total * 1000000;
-            d.cat_ecomm = +d.cat_ecomm * 1000000;
-            d.sector_total = +d.sector_total * 1000000;
-            d.sector_ecomm = +d.sector_ecomm * 1000000;
-            d.pct_total = d.cat_total/d.sector_total;
-            d.pct_ecomm = d.cat_ecomm/d.sector_ecomm;
-        })
+    export const categoryRankings = () => {
+        csv('./src/data/data-categories.csv').then(data => {
+            data.forEach(d => {
+                d.year = +d.year;
+                d.cat_total = +d.cat_total * 1000000;
+                d.cat_ecomm = +d.cat_ecomm * 1000000;
+                d.sector_total = +d.sector_total * 1000000;
+                d.sector_ecomm = +d.sector_ecomm * 1000000;
+                d.pct_total = d.cat_total/d.sector_total;
+                d.pct_ecomm = d.cat_ecomm/d.sector_ecomm;
+            })
 
-        const filterData = (year) => {
-            return (
-                data.filter(d => {return  d.year === year && d.category !== 'Nonmerchandise'})
-                .sort((a,b) => descending(a.pct_ecomm, b.pct_ecomm))
-        )};
+            const filterData = (year) => {
+                return (
+                    data.filter(d => {return  d.year === year && d.category !== 'Nonmerchandise'})
+                    .sort((a,b) => descending(a.pct_ecomm, b.pct_ecomm))
+            )};
 
-        let year = 2000;
-        renderChart(filterData(2000));
-        
-        select('#category-totals')
-            .append('text')
-                .text(`% of Industry Share in ${year}`)
-                .attr('id', 'year-label')
-                .attr('transform', `translate(${margin.left}, ${margin.top - 5})`)
-
-        const loopYears = () => {
-            year++;
-            if (year === 2017) { 
-                clearInterval(intervals); 
-                svg.append('text')
-                    .attr('x', width-margin.right)
-                    .attr('y', margin.top)
-                    .attr('id', 'replay-button')
-                    .text('[Replay]')
-                    .on('click', () => {
-                        categoryRankings();
-                    })
-            } else {
-                select('#year-label')
+            let year = 2000;
+            renderChart(filterData(2000));
+            
+            select('#category-totals')
+                .append('text')
                     .text(`% of Industry Share in ${year}`)
-                    .transition().duration(300);
-    
-                reRenderChart(filterData(year))
-            }
-        }
+                    .attr('id', 'year-label')
+                    .attr('transform', `translate(${margin.left}, ${margin.top - 5})`)
 
-        const intervals = setInterval(loopYears, 500);
-    })
-}
+            const loopYears = () => {
+                year++;
+                if (year === 2017) { 
+                    clearInterval(intervals); 
+                    svg.append('text')
+                        .attr('x', width-margin.right)
+                        .attr('y', margin.top)
+                        .attr('id', 'replay-button')
+                        .text('[Replay]')
+                        .on('click', () => {
+                            categoryRankings();
+                        })
+                } else {
+                    select('#year-label')
+                        .text(`% of Industry Share in ${year}`)
+                        .transition().duration(300);
+        
+                    reRenderChart(filterData(year))
+                }
+            }
+
+            const intervals = setInterval(loopYears, 500);
+        })
+    }
 ```
 
 Update line chart with appropriate transitions when user changes merchandise category filters.
 
 ```javascript
-//Part of re-render function
-const nested = nest()
-    .key(d => d.category)
-    .entries(data);
+    //Part of re-render function
+    const nested = nest()
+        .key(d => d.category)
+        .entries(data);
 
-const plotArea = select('#plotarea-growth')
-const lines = plotArea.selectAll('.line-path').data(nested, d => d.key);
+    const plotArea = select('#plotarea-growth')
+    const lines = plotArea.selectAll('.line-path').data(nested, d => d.key);
 
-lines
-    .enter().append('path')
-        .attr('class', 'line-path')
-        .attr('stroke', d => colorScale(d.key))
-        .attr('d', d => flatlineGenerator(d.values))
-    .merge(lines)
-        .transition().duration(300)
-        .attr('d', d => lineGenerator(d.values));
+    lines
+        .enter().append('path')
+            .attr('class', 'line-path')
+            .attr('stroke', d => colorScale(d.key))
+            .attr('d', d => flatlineGenerator(d.values))
+        .merge(lines)
+            .transition().duration(300)
+            .attr('d', d => lineGenerator(d.values));
 
-lines
-    .exit()
-    .transition().duration(500)
-        .attr('d', d => flatlineGenerator(d.values))
-        .style('opacity', 0.5)
-    .remove();
+    lines
+        .exit()
+        .transition().duration(500)
+            .attr('d', d => flatlineGenerator(d.values))
+            .style('opacity', 0.5)
+        .remove();
 ```
