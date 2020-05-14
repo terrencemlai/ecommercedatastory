@@ -5,9 +5,9 @@
 “Rise of E-commerce and Mail-Order Houses in the US” is an interactive data story that highlights descriptive trends of annual e-commerce revenue over the past two decades.  It offers dynamic visualizations of economic data from the [US Census](https://www.census.gov/data/tables/2017/econ/e-stats/2017-e-stats.html) for the Electronic Shopping and Mail-Order House industry (NAICS Code 4541), which includes prominent companies like Amazon, eBay, Wayfair, QVC, and Expedia.
 
 ## How to Interact
-![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-tooltips.gif "bar chart tooltips")
-![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-animation.gif "bar chart tooltips")
-![bar chart tooltips](https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-lines-filters.gif "bar chart tooltips")
+<img src="https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-tooltips.gif" width="30%"/>
+<img src="https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-bar-animation.gif" width="30%"/>
+<img src="https://raw.githubusercontent.com/terrencemlai/ecommercedatastory/master/src/images/ecommdatastory-lines-filters.gif" width="30%"/>
 
 
 
