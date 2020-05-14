@@ -5,7 +5,7 @@
 ## Overview
 “Rise of E-commerce and Mail-Order Houses in the US” is an interactive data story that highlights descriptive trends of annual e-commerce revenue over the past two decades.  It offers dynamic visualizations of economic data from the [US Census](https://www.census.gov/data/tables/2017/econ/e-stats/2017-e-stats.html) for the Electronic Shopping and Mail-Order House industry (NAICS Code 4541), which includes prominent companies like Amazon, eBay, Wayfair, QVC, and Expedia.
 
-## How to Interact
+## Usage
 
 The data story is a single-page application.  Scroll down to continue viewing content and charts.  Each graph offers different interactive opportunities, such as tooltips on mouseover or customizable filters.  Have fun exploring!
 
@@ -13,7 +13,7 @@ The data story is a single-page application.  Scroll down to continue viewing co
 ![bar chart animation](/src/images/ecommdatastory-bar-animation-275.gif "bar chart animation")
 ![line chart filters](/src/images/ecommdatastory-lines-filtertrans-275.gif "line chart filters")
 
-## Features and MVP's
+## Features
 
 * Illustrates annual trends with D3
 * Displays tooltips for users to view supplemental data and metrics
@@ -29,8 +29,6 @@ The data story is a single-page application.  Scroll down to continue viewing co
 * CSS3
 
 A challenge for this project was to achieve interactivity and data refreshes without additional libraries like JQuery and React.
-
-
 
 
 ## Sample Code
@@ -154,3 +152,9 @@ Update line chart with appropriate transitions when user changes merchandise cat
             .style('opacity', 0.5)
         .remove();
 ```
+## Future Features
+
+* Display tooltip(s) for multi-line chart
+* Export or save chart
+* Change speed of ranking animation
+* Pause and resume ranking animation
