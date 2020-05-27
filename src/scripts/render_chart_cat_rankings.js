@@ -42,7 +42,7 @@ const renderTooltip = (d) => {
 
 const renderChart = data => {
     selectAll('#category-totals g, #category-totals text').remove();
-    const fade = 500;
+    const fade = 800;
 
     const yScale = scaleBand()
         .domain(data.map(yValue))
@@ -117,7 +117,7 @@ const renderChart = data => {
 
 
 export const reRenderChart = (data) => {
-    const fade = 300;
+    const fade = 800;
     
     const yScale = scaleBand()
         .domain(data.map(yValue))
@@ -198,7 +198,7 @@ export const categoryRankings = () => {
         reRenderChart(filterData(year))
         }
 
-        const intervals = setInterval(loopYears, 500);
+        const intervals = setInterval(loopYears, 800);
     })
 }
     
