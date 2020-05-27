@@ -9,32 +9,21 @@
 
 The data story is a single-page application.  Scroll down to continue viewing content and charts.  Each graph offers different interactive opportunities, such as tooltips on mouseover or customizable filters.  Have fun exploring!
 
-![bar chart tooltips](/src/images/ecommdatastory-bar-tooltips-275.gif "bar chart tooltips")
-![bar chart animation](/src/images/ecommdatastory-bar-animation-275.gif "bar chart animation")
-![line chart filters](/src/images/ecommdatastory-lines-filtertrans-275.gif "line chart filters")
-
-## Features
-
-* Illustrates annual trends with D3
-* Displays tooltips for users to view supplemental data and metrics
-* Animates changing merchandise category ranks over 20 years, with a button to replay the animation
-* Updates data and charts automatically as user filters merchandise categories
-* Adheres to data visualization best practices for color palettes and minimal labeling
-
 ## Technologies
 
-* JavaScript
-* D3.js
+* JavaScript (ES6)
+* D3.js (5.16.0)
+* Webpack (4.43.0)
 * HTML5
 * CSS3
 
-A challenge for this project was to achieve interactivity and data refreshes without additional libraries like JQuery and React.
+A challenge for this project was to achieve interactivity and data refreshes without additional libraries like jQuery and React.
 
+## Features
 
-## Sample Code
-Wait to render chart until user scrolls to element, but do not re-render again unless page refreshes or user prompts with filtering or replay.
+* Charts illustrate annual trends with D3.  They wait to render chart until user scrolls to element.  They do not re-render again unless page refreshes or user prompts with filtering or replay. 
 
-```javascript
+   ```javascript
     //Part of anonymous function in index.js triggered on DOMContentLoaded
     const isInViewport = (ele) => {
         const bounding = ele.getBoundingClientRect();
@@ -67,11 +56,18 @@ Wait to render chart until user scrolls to element, but do not re-render again u
             growthLoaded = true;
         }
     })
-```
+    ```
 
-Animate changes in merchandise category rankings, starting with year 2000.  Update rankings and title to reflect the new year.  Stop animation when year is 2017 and display “Replay” button to animate again.
+* Graphs display tooltips to view supplemental data and metrics when users mouse over bars.
 
-```javascript
+   ![bar chart tooltips](/src/images/ecommdatastory-bar-tooltips-275.gif "bar chart tooltips")
+
+
+* Data story utilizes animation to dynamically reflect changes in merchandise category rankings, starting with year 2000.  The chart updates rankings and title to reflect each year.  The animation stops when it reaches the final year (2017) and displays “Replay” button to animate again.
+
+   ![bar chart animation](/src/images/ecommdatastory-bar-animation-275.gif "bar chart animation")
+
+   ```javascript
     export const categoryRankings = () => {
         csv('./src/data/data-categories.csv').then(data => {
             data.forEach(d => {
@@ -123,11 +119,13 @@ Animate changes in merchandise category rankings, starting with year 2000.  Upda
             const intervals = setInterval(loopYears, 500);
         })
     }
-```
+   ```
 
-Update line chart with appropriate transitions when user changes merchandise category filters.
+* The line chart showing each category's growth updates data and charts automatically as user filters merchandise categories.
 
-```javascript
+   ![line chart filters](/src/images/ecommdatastory-lines-filtertrans-275.gif "line chart filters")
+
+   ```javascript
     //Part of re-render function
     const nested = nest()
         .key(d => d.category)
@@ -151,7 +149,10 @@ Update line chart with appropriate transitions when user changes merchandise cat
             .attr('d', d => flatlineGenerator(d.values))
             .style('opacity', 0.5)
         .remove();
-```
+   ```
+
+* Adheres to data visualization best practices for color palettes and minimal labeling.
+
 ## Future Features
 
 * Display tooltip(s) for multi-line chart
