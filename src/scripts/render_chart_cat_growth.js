@@ -81,7 +81,7 @@ Object.keys(categories).map( category => {
         .on('click', () => {
             categories[category] = !categories[category];
             if (Object.values(categories).filter(v=> v).length == 0) {
-                window.alert("Sorry, your selection cannot be applied because at least one category must remain in this chart.")
+                window.alert("Your selection cannot be applied because at least one category must remain in this chart.")
                 categories[category] = !categories[category];
             } else {
                 const filteredData = mainData.filter(d => {return categories[d.category]});
